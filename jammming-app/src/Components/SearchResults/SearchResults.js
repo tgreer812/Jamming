@@ -3,7 +3,6 @@
   <!-- Add a TrackList component -->
 </div>*/
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { TrackList } from '../TrackList/TrackList';
 import './SearchResults.css';
 
@@ -12,8 +11,12 @@ export class SearchResults extends React.Component {
     return (
       <div className="SearchResults">
         <h2>Results</h2>
-        <TrackList />
+        <TrackList onAdd={this.props.onAdd} isRemoval={false} results={this.props.results}/>
       </div>
     );
   }
+}
+
+SearchResults.defaultProps = {
+  onAdd : () => {alert('Default prop onAdd() in SearchResults.js. Pass a callback')}
 }

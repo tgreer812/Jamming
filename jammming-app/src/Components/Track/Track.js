@@ -22,14 +22,22 @@ export class Track extends React.Component {
 
   // TODO: track name, track artist, track album, +/-
   render() {
-    return(
+
+    return (
       <div className="Track">
         <div className="Track-information">
-          <h3>{"Track one"}</h3>
-          <p> {"track artist will go here"} | {"track album will go here"} </p>
+          <h3>{this.props.name}</h3>
+          <p> {this.props.artist} | {this.props.album} </p>
         </div>
-        <button className="Track-action">{this.renderAction()}</button>
+        <button onClick={this.props.onAction} className="Track-action">{this.renderAction()}</button>
       </div>
-    )
+    );
   }
+}
+
+Track.defaultProps = {
+  name : "track name",
+  artist : "track name",
+  album : "album name",
+  onAction : () => {alert("Default props action!!!");}
 }
