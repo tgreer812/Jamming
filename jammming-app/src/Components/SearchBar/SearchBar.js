@@ -4,7 +4,7 @@
 </div> */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import './SearchBar.css';
 
 export class SearchBar extends React.Component {
   render() {

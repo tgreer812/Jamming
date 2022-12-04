@@ -6,8 +6,8 @@
 </div> */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TrackList from '../TrackList/TrackList';
+import { TrackList } from '../TrackList/TrackList';
+import './Playlist.css';
 
 export class Playlist extends React.Component {
   render() {
