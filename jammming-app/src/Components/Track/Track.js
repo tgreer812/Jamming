@@ -12,12 +12,15 @@ import './Track.css';
 export class Track extends React.Component {
   constructor(props) {
     super(props);
-    this.isRemoval = false;
-    this.renderAction = this.renderAction.bind(this);
+    this.addTrack = this.addTrack.bind(this);
   }
 
   renderAction() {
-    return this.isRemoval ? '-' : '+';
+    return this.props.isRemoval ? '-' : '+';
+  }
+
+  addTrack() {
+    this.props.onAdd(this.props.track)
   }
 
   // TODO: track name, track artist, track album, +/-
@@ -29,15 +32,16 @@ export class Track extends React.Component {
           <h3>{this.props.name}</h3>
           <p> {this.props.artist} | {this.props.album} </p>
         </div>
-        <button onClick={this.props.onAction} className="Track-action">{this.renderAction()}</button>
+        <button onClick={this.addTrack} className="Track-action">{this.renderAction()}</button>
       </div>
     );
   }
 }
 
 Track.defaultProps = {
+  isRemoval : false,
   name : "track name",
   artist : "track name",
   album : "album name",
-  onAction : () => {alert("Default props action!!!");}
+  onAdd : () => {alert("Default props action!!!");}
 }

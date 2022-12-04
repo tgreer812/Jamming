@@ -19,7 +19,7 @@ export class TrackList extends React.Component {
             name={track.props.name}
             artist={track.props.artist}
             album={track.props.album}
-            onAction={track.props.onAction}
+            onAdd={track.props.onAdd}
           />
         </li>
       );
