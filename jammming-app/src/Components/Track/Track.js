@@ -20,7 +20,11 @@ export class Track extends React.Component {
   }
 
   addTrack() {
-    this.props.onAdd(this.props.track)
+    this.props.onAdd(this);
+  }
+
+  removeTrack() {
+    this.props.onRemove(this.props.track);
   }
 
   // TODO: track name, track artist, track album, +/-
@@ -32,16 +36,16 @@ export class Track extends React.Component {
           <h3>{this.props.name}</h3>
           <p> {this.props.artist} | {this.props.album} </p>
         </div>
-        <button onClick={this.addTrack} className="Track-action">{this.renderAction()}</button>
+        <button onClick={this.props.isRemoval ? this.removeTrack : this.addTrack} className="Track-action">{this.renderAction()}</button>
       </div>
     );
   }
 }
 
-Track.defaultProps = {
-  isRemoval : false,
-  name : "track name",
-  artist : "track name",
-  album : "album name",
-  onAdd : () => {alert("Default props action!!!");}
-}
+// Track.defaultProps = {
+//   isRemoval : false,
+//   name : "track name",
+//   artist : "track name",
+//   album : "album name",
+//   onAdd : () => {alert("Default props action!!");}
+// }
