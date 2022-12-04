@@ -48,16 +48,13 @@ export class App extends React.Component {
   }
 
   addTrack(track) {
-    //alert("Calling addTrack successfully!");
-    for (let i in this.state.playlistTracks) {
-      console.log(typeof i);
-      console.log(i);
-      if(this.state.playlistTracks[i].id === track.id) {
-        console.log("Song already in playlist");
-        return;
-      }
+
+    let overlap = this.state.playlistTracks.filter(x => x.props.id === track.props.id);
+    if(overlap.length) {
+      console.log("Song already in playlist!");
+      return;
     }
-    console.log(typeof track);
+
     console.log("Adding track to playlist");
 
     // Make a copy of the array to modify (can also use spread operator in ES6)
@@ -70,11 +67,9 @@ export class App extends React.Component {
   }
 
   removeTrack(track) {
-    alert("Calling removeTrack successfully!");
     let newPlaylistTracks = this.state.playlistTracks.slice();
-    newPlaylistTracks = newPlaylistTracks.filter(t => {
-      return t.id !== track.id;
-    })
+    newPlaylistTracks = newPlaylistTracks.filter(t => t.props.id !== track.props.id);
+
     console.log(newPlaylistTracks);
 
     this.setState({
@@ -93,9 +88,9 @@ export class App extends React.Component {
           <div className="App-playlist">
           <SearchResults onAdd={this.addTrack} searchTracks={this.state.searchResults}/>
           <Playlist 
-              playlistName={this.state.playlistName}
-              playlistTracks={this.state.playlistTracks}
-              onRemove={this.removeTrack}
+            onRemove={this.removeTrack}
+            playlistName={this.state.playlistName}
+            playlistTracks={this.state.playlistTracks}  
           />
           </div>
         </div>
