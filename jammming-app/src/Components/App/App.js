@@ -6,46 +6,23 @@ import { SearchResults } from '../SearchResults/SearchResults'
 import { Playlist } from '../Playlist/Playlist';
 import './App.css';
 import { Track } from "../Track/Track";
+import Spotify from "../../util/Spotify";
 
 
 export class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults : [
-        <Track 
-          name="Track name 1"
-          artist="Track artist 1"
-          album="Track album 1"
-          id="1"
-        />,
-        <Track 
-          name="Track name 2"
-          artist="Track artist 2"
-          album="Track album 2"
-          id="2"
-        />,
-      ],
+      searchResults : [],
       playlistName : "My playlist",
-      playlistTracks : [
-        <Track 
-          name="Spank me 1"
-          artist="Billie's Eyelash 1"
-          album="BaDDDD girl 1"
-          id="3"
-        />,
-        <Track 
-          name="Love gory 2"
-          artist="Taylor's Swift 2"
-          album="Hard beginnings 2"
-          id="4"
-        />,
-      ]
+      playlistTracks : []
     };
 
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
   }
 
   addTrack(track) {
@@ -84,19 +61,49 @@ export class App extends React.Component {
     });
   }
 
+  savePlaylist() {
+    
+  }
+
+  search(term) {
+    const prom = Spotify.search(term);
+    prom
+      .then(res => {
+        let newTrackList = res.map( track => {
+          return (
+            <Track
+              name={track.Name}
+              id={track.ID}
+              artist={track.Artist}
+              album={track.Album}
+              uri={track.URI}
+            />
+          )
+        });
+
+        this.setState({
+          searchResults : newTrackList
+        });
+      })
+      .catch(err => {
+        console.log("Failed to resolve search!");
+      });
+  }
+
   render() {
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-        <SearchBar />
+        <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
           <SearchResults onAdd={this.addTrack} searchTracks={this.state.searchResults}/>
           <Playlist 
             onRemove={this.removeTrack}
             onNameChange={this.updatePlaylistName}
+            onSave={this.savePlaylist}
             playlistName={this.state.playlistName}
-            playlistTracks={this.state.playlistTracks} 
+            playlistTracks={this.state.playlistTracks}
           />
           </div>
         </div>

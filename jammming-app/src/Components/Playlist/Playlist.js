@@ -19,7 +19,7 @@ export class Playlist extends React.Component {
         <input onChange={this.handleNameChange} defaultValue={'New Playlist'}/>
         <TrackList onRemove={this.props.onRemove} results={this.props.playlistTracks} isRemoval={true}/>
         <button 
-          onClick={() => {alert("go fuck yourself - shit ain't implemented yet");}} 
+          onClick={this.props.onSave} 
           className="Playlist-save">
           SAVE TO SPOTIFY
         </button>
