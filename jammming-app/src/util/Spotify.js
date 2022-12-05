@@ -97,27 +97,5 @@ let Spotify = {
 
 };
 
-let savePlaylist = async () => {
-    
-    let url = 'https://accounts.spotify.com/authorize';
-    url += '?response_type=token';
-    url += '&client_id=' + encodeURIComponent(clientID);
-    url += '&scope=' + encodeURIComponent(scope);
-    url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
-    url += '&state=' + encodeURIComponent(state);
-
-    try {
-        const response = await fetch(url);
-        if(response.ok) {
-            const jsonResponse = await response.json;
-        }
-    }
-    catch(error) {
-        console.log(error);
-    }
-
-
-}
-
 
 export default Spotify;
