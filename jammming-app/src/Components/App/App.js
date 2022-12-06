@@ -62,7 +62,17 @@ export class App extends React.Component {
   }
 
   savePlaylist() {
-    
+    let trackUris = this.state.playlistTracks.map( track => track.props.uri);
+    console.log(trackUris);
+    const prom = Spotify.savePlaylist(this.state.playlistName, trackUris);
+    prom
+      .then(res => {
+        //TODO: Clear playlist and reset playlist name, also alert the user somehow
+        alert("Success!");
+      })
+      .catch(err => {
+        console.log("Failed to resolve savePlaylist promise");
+      })
   }
 
   search(term) {

@@ -73,6 +73,7 @@ let Spotify = {
                 let items = jsonResponse['tracks']['items'];
 
                 results = items.map( track => {
+                    alert(track.uri);
                     return {
                         'ID': track.id,
                         'Name': track.name,
@@ -93,8 +94,81 @@ let Spotify = {
             console.log(`Error: ${err}`);
         }
         return results;
-    }
+    },
 
+    async savePlaylist(playlistName, trackUris) {
+        if (!(playlistName && trackUris)) {return;}
+
+        try {
+            let token = await this.getAccessToken();
+            let userID;
+            let playlistID;
+
+            // Fetch user information
+            let response = await fetch('https://api.spotify.com/v1/me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            // Parse request for user ID 
+            if (response.ok) {
+                let jsonData = await response.json();
+                userID = jsonData['id'];
+            } else {
+                console.log("Failed to get user information!");
+                return;
+            }
+            alert(`User ID: ${userID}`);
+
+            // Use user ID to create a playlist
+            response = await fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'name': playlistName
+                })
+            });
+
+            if (response.ok) {
+                let jsonData = await response.json();
+                playlistID = jsonData['id'];
+            } else {
+                console.log("Failed to create playlist!");
+                alert(`Status: ${response.status}`);
+                return;
+            }
+
+            // Add tracks to playlist
+            response = await fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'uris': trackUris,
+                    'position': 0
+                })
+            });
+
+            if (!response.ok) {
+                console.log("Failed to add tracks to playlist!")
+                alert(`Status: ${response.status}`);
+                return;
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+        console.log("Playlist created successfully!");
+    }
 };
 
 
