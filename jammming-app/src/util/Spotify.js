@@ -116,7 +116,6 @@ let Spotify = {
                 console.log("Failed to get user information!");
                 return;
             }
-            alert(`User ID: ${userID}`);
 
             // Use user ID to create a playlist
             response = await fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
@@ -135,7 +134,6 @@ let Spotify = {
                 playlistID = jsonData['id'];
             } else {
                 console.log("Failed to create playlist!");
-                alert(`Status: ${response.status}`);
                 return;
             }
 
@@ -153,8 +151,7 @@ let Spotify = {
             });
 
             if (!response.ok) {
-                console.log("Failed to add tracks to playlist!")
-                alert(`Status: ${response.status}`);
+                console.log("Failed to add tracks to playlist!");
                 return;
             }
         }

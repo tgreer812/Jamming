@@ -66,7 +66,7 @@ export class App extends React.Component {
     prom
       .then(res => {
         //TODO: Clear playlist and reset playlist name, also alert the user somehow
-        alert("Success!");
+        console.log("Saved");
       })
       .catch(err => {
         console.log("Failed to resolve savePlaylist promise");
