@@ -1,10 +1,3 @@
-/*<div class="Track">
-  <div class="Track-information">
-    <h3><!-- track name will go here --></h3>
-    <p><!-- track artist will go here--> | <!-- track album will go here --></p>
-  </div>
-  <button class="Track-action"><!-- + or - will go here --></button>
-</div>*/
 
 import React from "react";
 import './Track.css';
@@ -12,24 +5,33 @@ import './Track.css';
 export class Track extends React.Component {
   constructor(props) {
     super(props);
-    this.isRemoval = false;
-    this.renderAction = this.renderAction.bind(this);
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   renderAction() {
-    return this.isRemoval ? '-' : '+';
+    return this.props.isRemoval ? '-' : '+';
   }
 
-  // TODO: track name, track artist, track album, +/-
+  addTrack() {
+    this.props.onAdd(this);
+  }
+
+  removeTrack() {
+    this.props.onRemove(this);
+    console.log("error!");
+  }
+
   render() {
-    return(
+
+    return (
       <div className="Track">
         <div className="Track-information">
-          <h3>{"Track one"}</h3>
-          <p> {"track artist will go here"} | {"track album will go here"} </p>
+          <h3>{this.props.name}</h3>
+          <p> {this.props.artist} | {this.props.album} </p>
         </div>
-        <button className="Track-action">{this.renderAction()}</button>
+        <button onClick={this.props.isRemoval ? this.removeTrack : this.addTrack} className="Track-action">{this.renderAction()}</button>
       </div>
-    )
+    );
   }
 }

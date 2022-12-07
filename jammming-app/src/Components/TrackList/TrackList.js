@@ -1,20 +1,32 @@
-/*<div class="TrackList">
-    <!-- You will add a map method that renders a set of Track components  -->
-</div>*/
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Track } from '../Track/Track';
 import './TrackList.css';
 
 export class TrackList extends React.Component {
+  
   render() {
+    // track should be a <Track />
+    const listItems = this.props.results.map((track) => {
+      return (
+        <li key={track.props.id}>
+          <Track 
+            name={track.props.name}
+            artist={track.props.artist}
+            album={track.props.album}
+            id={track.props.id}
+            uri={track.props.uri}
+            onAdd={this.props.onAdd}
+            onRemove={this.props.onRemove}
+            isRemoval={this.props.isRemoval}
+          />
+        </li>
+      );
+    });
+
     return (
-        <div class="TrackList">
-            {/*Add map method for rendering Track components */}
-            <Track />
-            <Track />
-            <Track />
+        <div className="TrackList">
+            <ul>{listItems}</ul>
         </div>
     );
   }
