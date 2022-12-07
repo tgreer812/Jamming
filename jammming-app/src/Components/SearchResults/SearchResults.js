@@ -13,8 +13,3 @@ export class SearchResults extends React.Component {
     );
   }
 }
-
-SearchResults.defaultProps = {
-  searchTracks : [],
-  onAdd : () => {alert('Default prop onAdd() in SearchResults.js. Pass a callback')}
-}

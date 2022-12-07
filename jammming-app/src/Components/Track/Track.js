@@ -35,7 +35,3 @@ export class Track extends React.Component {
     );
   }
 }
-
-Track.defaultProps = {
-  uri : "http://notdefined.com"
-}

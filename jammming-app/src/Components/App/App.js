@@ -1,13 +1,11 @@
 
 import React from 'react';
 import { SearchBar } from '../SearchBar/SearchBar'
-
 import { SearchResults } from '../SearchResults/SearchResults'
 import { Playlist } from '../Playlist/Playlist';
 import './App.css';
 import { Track } from "../Track/Track";
 import Spotify from "../../util/Spotify";
-
 
 export class App extends React.Component {
   constructor(props) {
@@ -80,6 +78,7 @@ export class App extends React.Component {
     prom
       .then(res => {
         let newTrackList = res.map( track => {
+          //alert(`Setting uri: ${track.URI}`);
           return (
             <Track
               name={track.Name}
@@ -90,7 +89,6 @@ export class App extends React.Component {
             />
           )
         });
-
         this.setState({
           searchResults : newTrackList
         });

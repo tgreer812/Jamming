@@ -65,15 +65,12 @@ let Spotify = {
                     'Authorization': `Bearer ${accessToken}`
                 }
             });
-            console.log(`Track response:\n${response}`);
 
             if (response.ok) {
                 const jsonResponse = await response.json();
 
                 let items = jsonResponse['tracks']['items'];
-
                 results = items.map( track => {
-                    alert(track.uri);
                     return {
                         'ID': track.id,
                         'Name': track.name,
@@ -82,8 +79,6 @@ let Spotify = {
                         'URI': track.uri
                     };
                 });
-
-
                
             }
             else {

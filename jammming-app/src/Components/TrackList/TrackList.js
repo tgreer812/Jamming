@@ -15,9 +15,10 @@ export class TrackList extends React.Component {
             artist={track.props.artist}
             album={track.props.album}
             id={track.props.id}
+            uri={track.props.uri}
             onAdd={this.props.onAdd}
             onRemove={this.props.onRemove}
-            isRemoval={this.props.isRemoval}    
+            isRemoval={this.props.isRemoval}
           />
         </li>
       );
